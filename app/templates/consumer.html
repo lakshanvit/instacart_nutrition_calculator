@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Consumer Details</title>
+{% endblock %}
+
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+
+                <h2>Manage <b>Consumers</b> <button type="button" class="btn btn-success float-right "
+                        data-toggle="modal" data-target="#mymodal">Add new Consumer</button></h2>
+                <br>
+
+                {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close" >
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+                {{message}}
+
+
+                </div> 
+
+                
+
+                {% endfor %}
+
+
+                {% endif %}
+
+                {% endwith %}
+
+                <table class="table table-hover table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Weight(Kg)</th>
+                        <th>Height(feet)</th>
+                        <th>Avarage Cal Amount(per day)</th>
+                        <th>Action</th>
+
+
+                    </tr>
+
+                    {% for row in consumers %}
+
+                    <tr>
+                        <td>{{row.id}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.age}}</td>
+                        <td>{{row.gender}}</td>
+                        <td>{{row.weight}}</td>
+                        <td>{{row.height}}</td>
+                        <td>{{row.avg_cal}}</td>
+
+
+                        <td>
+                            <a href="/update/{{row.id}}" class="btn btn-primary btn-xs" data-toggle="modal"
+                                data-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs"
+                                onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+
+                        </td>
+                    </tr>
+
+
+
+                    <!-- Modal Edit Consumer-->
+
+                    <div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title">Update Information</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form action="{{url_for('update')}}" method="POST">
+
+
+                                        <div class="form-group">
+
+                                            <label>Name:</label>
+                                            <input type="hidden" name="id" value="{{row.id}}">
+                                            <input type="text" class="form-control" name="name" value="{{row.name}}">
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+
+                                            <label>Age:</label>
+                                            <input type="number" class="form-control" name="age" value="{{row.age}}">
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+
+                                            <label>Gender:</label>
+                                            <input type="text" class="form-control" name="gender" value="{{row.gender}}">
+
+
+                                        </div>
+
+                                        <div class="form-group">
+
+
+                                            <label>Weight:</label>
+                                            <input type="number" class="form-control" name="weight" value="{{row.weight}}">
+
+
+                                        </div>
+
+                                        <div class="form-group">
+
+
+                                            <label>Height:</label>
+                                            <input type="number" class="form-control" name="height" value="{{row.height}}">
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Update</button>
+
+                                        </div>
+
+
+                                    </form>
+
+
+                                </div>
+
+
+                                <div class="modal-footer">
+
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    
+
+                    {% endfor %}
+
+
+                </table>
+
+            </div>
+
+            <!-- Modal Add Consumer-->
+
+            <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4 class="modal-title">Add Consumer</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="{{url_for('insert')}}" method="POST">
+
+
+                                <div class="form-group">
+
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="name" required="1">
+
+
+                                </div>
+
+
+                                <div class="form-group">
+
+
+                                    <label>Age:</label>
+                                    <input type="number" class="form-control" name="age" required="1">
+
+
+                                </div>
+
+
+                                <div class="form-group">
+
+
+                                    <label>Gender:</label>
+                                    <input type="text" class="form-control" name="gender" required="1">
+
+
+                                </div>
+
+                                <div class="form-group">
+
+
+                                    <label>Weight(Kg):</label>
+                                    <input type="number" step=0.01 class="form-control" name="weight" required="1">
+
+
+                                </div>
+
+                                <div class="form-group">
+
+
+                                    <label>Height(Ft):</label>
+                                    <input type="number" step=0.01 class="form-control" name="height" required="1">
+
+
+                                </div>
+
+                                
+
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Add Consumer</button>
+
+                                </div>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

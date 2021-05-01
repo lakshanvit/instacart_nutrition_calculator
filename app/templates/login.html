@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+
+{% block body %}
+<br>
+<h3>Log into your Account</h3>
+
+<hr>
+<div class="container">
+
+<form action="" method="POST" novalidate>
+
+    
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" >
+
+            <span aria-hidden="true">x</span>
+
+        </button>
+
+    {{message}}
+
+
+    </div> 
+
+    
+
+    {% endfor %}
+
+
+    {% endif %}
+
+    {% endwith %}
+
+
+    {{form.csrf_token}}
+    <div class="jumbotron p-3"> 
+    <div class="form-group">
+    <p>
+       <b>  {{form.userid.label}} </b><br>
+        {{form.userid(size=32)}}
+
+        {% for error  in form.userid.errors %}
+
+            <span style="color:red">{{error}}</span>
+
+        {% endfor %}
+
+    </p>
+    </div>
+
+
+    <div class="form-group"> 
+    <p>
+       <b>  {{form.password.label}} </b><br>
+        {{form.password(size=32)}}
+
+        {% for error  in form.password.errors %}
+
+            <span style="color:red">{{error}}</span>
+
+        {% endfor %}
+
+    </p>
+
+</div>
+    
+    <p>
+        <input type="submit" value="Login" class="btn btn-success">
+        <label>If you do not have an account please register first</label> 
+        <button type="button" class="btn btn-primary float-right"
+        data-toggle="modal" data-target="#modalreg">Register</button>
+    </p>
+</form>
+</div>
+</div>
+
+
+<!-- Modal Register User-->
+
+<div id="modalreg" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Register User</h4>
+            </div>
+            <div class="modal-body">
+
+                <form action="{{url_for('register')}}" method="POST">
+                    <h6>Only for instacart users</h6>
+
+                    <div class="form-group">
+
+                        <label>User Id: (This should be a number)</label>
+                        <input type="number" class="form-control" name="user_id" required="1">
+
+
+                    </div>
+
+
+                    <div class="form-group">
+
+
+                        <label>Email:</label>
+                        <input type="email" class="form-control" name="email" required="1">
+
+
+                    </div>
+
+
+                    <div class="form-group">
+
+
+                        <label>Password:</label>
+                        <input type="password" class="form-control" name="password" required="1">
+
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Register</button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+            <div class="modal-footer">
+
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+<hr>
+
+{% endblock %}

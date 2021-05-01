@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Recommendations</title>
+
+{% endblock %}
+
+
+{% block body %}
+<br>
+<h2>Recommendations</h2>
+
+ 
+
+<hr>
+<!-- For loop logic of jinja template -->
+{%for i in range(0, len)%} 
+      
+{{items[i]}} 
+{%endfor%} 
+
+
+
+<hr>
+
+
+{% endblock %}

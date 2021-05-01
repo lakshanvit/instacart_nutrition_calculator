@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Calorie Details</title>
+
+{% endblock %}
+
+
+{% block body %}
+<br>
+<h2>Nutrition List of your Last Order</h2>
+
+<hr>
+
+
+{% for table in tables %}
+
+            {{ table|safe }}
+{% endfor %}
+
+<div class="jumbotron"> 
+<h6>Total Calcium (mg) : {{calcium}}</h6>
+<h6>Total Calorie (kcal) : {{energy}}</h6>
+<h6>Total Protien (g) : {{protien}}</h6>
+<h6>Total Fat (g) : {{fat}}</h6>
+</div>
+
+<hr>
+
+
+{% endblock %}
